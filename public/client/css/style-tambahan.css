@@ -1,0 +1,348 @@
+
+    /* Gabungkan selector ini */
+    .table-responsive::-webkit-scrollbar,
+    .top-scrollbar-container::-webkit-scrollbar {
+        width: 8px;
+        /* Anda bisa set ke 8px agar konsisten jika ada scroll vertikal */
+        height: 8px;
+    }
+
+    /* Gabungkan selector ini */
+    .table-responsive::-webkit-scrollbar-track,
+    .top-scrollbar-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Gabungkan selector ini */
+    .table-responsive::-webkit-scrollbar-thumb,
+    .top-scrollbar-container::-webkit-scrollbar-thumb {
+        background: #0084ff;
+        border-radius: 5px;
+    }
+
+    /* Gabungkan selector ini */
+    .table-responsive::-webkit-scrollbar-thumb:hover,
+    .top-scrollbar-container::-webkit-scrollbar-thumb:hover {
+        background: #0084ff78;
+    }
+
+
+    /* 2. PENGATURAN DASAR TABEL */
+    .detail-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+        background: #fff;
+
+    }
+
+    /* 3. LOGIKA STICKY HEADER */
+    .detail-table>thead th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #0084ff;
+        /* Menggunakan warna yang konsisten dari style Anda */
+    }
+
+    /* 4. PENGATURAN UNTUK SEMUA SEL (th & td) */
+    .detail-table th,
+    .detail-table td {
+        padding: 12px 15px;
+        /* text-align: center; */
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* 5. PENGATURAN SPESIFIK SEL HEADER (th) */
+    .detail-table thead th {
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    /* 6. PENGATURAN BODY TABEL */
+    .detail-table tbody tr:nth-child(even) {
+        background: #f3f4f6;
+    }
+
+    .detail-table tbody tr:hover {
+        background: #e6fffa;
+        transition: 0.3s;
+    }
+
+    /* Pengaturan lebar kolom spesifik */
+    .detail-table .kolom-keterangan {
+        width: 50%;
+        min-width: 600px;
+    }
+
+    /* WADAH UTAMA BARU */
+    .table-container {
+        position: relative;
+        /* Diperlukan untuk beberapa styling lanjutan jika ada */
+    }
+
+    /* WADAH SCROLLBAR ATAS */
+    .top-scrollbar-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        /* Sembunyikan scrollbar vertikal yang mungkin muncul */
+        height: 12px;
+        /* Sesuaikan dengan tinggi scrollbar bawah Anda */
+        margin-bottom: 8px;
+        /* Beri sedikit jarak ke tabel */
+        scrollbar-width: thin;
+        scrollbar-color: #0084ff #f1f1f1;
+    }
+
+    /* KONTEN PALSU DI DALAM SCROLLBAR ATAS */
+    .top-scrollbar-content {
+        height: 1px;
+        /* Cukup 1px karena hanya butuh lebarnya */
+    }
+
+    /* PENYESUAIAN KECIL PADA CSS LAMA ANDA */
+    /* Pastikan scrollbar bawah juga punya tinggi yang sama */
+    .table-responsive::-webkit-scrollbar {
+        width: 8px;
+        /* Atur juga scrollbar vertikal jika perlu */
+        height: 8px;
+        /* SAMAKAN TINGGINYA dengan .top-scrollbar-container */
+    }
+
+
+    /* === STYLE FINAL REVISI (PETA DI BAWAH TABEL) === */
+
+    /* Class untuk membuat modal super lebar */
+    .modal-super-xl {
+        max-width: 85%;
+        /* max-height: 90%; */
+    }
+
+    /* KANAN: Container untuk galeri foto agar bisa scroll */
+    .foto-container-scrollable {
+        height: 75vh;
+        /* Tinggi galeri dibuat dominan */
+        overflow-y: auto;
+        /* Aktifkan scroll vertikal jika foto banyak */
+        padding: 15px;
+
+    }
+
+    /* Style untuk gambar di galeri, termasuk transisi halus */
+    .galeri-foto-item {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        /* Rasio agar tidak terlalu gepeng */
+        object-fit: cover;
+        border-radius: 0.375rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        object-position: center;
+        /* Tambahan penting */
+        display: block;
+        /* Pastikan img tidak ikut flex parent */
+    }
+
+    /* Animasi hover 'terangkat' yang halus */
+    .hover-effect:hover .galeri-foto-item {
+        transform: scale(1.03);
+        /* Zoom lebih halus */
+    }
+
+    /* KIRI: Kontainer peta di kolom kiri */
+    .peta-container {
+        height: 220px;
+        /* Tinggi peta disesuaikan */
+        width: 100%;
+        border-radius: 0.375rem;
+        z-index: 0;
+    }
+
+    /* Placeholder jika peta/foto kosong */
+    .placeholder-container {
+        height: 280px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .placeholder-icon {
+        font-size: 2.5rem;
+        color: #aab2bd;
+    }
+
+    /* Lebar kolom header di tabel detail */
+    .th-detail-lebar {
+        width: 30%;
+    }
+
+    /* Class baru untuk membungkus tabel agar punya lengkungan */
+    .table-wrapper {
+        border-radius: 0.5rem;
+        /* Atur tingkat lengkungan, 0.5rem = 8px */
+        overflow: hidden;
+        /* INI KUNCINYA: "Memotong" sudut tajam tabel di dalamnya */
+        min-height: 280px;
+        border: 1px solid #dee2e6;
+        /* Garis border abu-abu seperti tabel */
+
+    }
+
+    .keterangan-panjang {
+        min-height: 140px;
+        /* Tinggi minimal untuk kotak uraian */
+        display: block;
+        /* Pastikan div ini adalah blok */
+    }
+
+
+    /* Class baru untuk kotak keterangan (area hijau) */
+    .keterangan-box {
+        border: 1px solid #dee2e6;
+        /* Garis border abu-abu */
+        border-radius: 0.375rem;
+        /* Sudut melengkung */
+        padding: 1rem;
+        /* Jarak di dalam kotak */
+        min-height: 231px;
+        /* Tinggi minimal kotak */
+    }
+
+    /* Atur z-index sidebar agar lebih rendah dari modal */
+    #sidenav-main {
+        z-index: 1030;
+        /* Nilai ini harus lebih rendah dari z-index modal (misal: 1050) */
+    }
+
+    /* Warna teks pagination jadi putih */
+    .pagination .page-link {
+        color: #fff !important;
+        background-color: #2e473a;
+        /* hijau tua dari dashboard */
+        border-color: #2e473a;
+    }
+
+    /* Warna teks halaman aktif */
+    .pagination .page-item.active .page-link {
+        color: #fff !important;
+        background-color: #335d3c;
+        /* sedikit lebih cerah untuk aktif */
+        border-color: #335d3c;
+    }
+
+    /* Warna teks pagination saat hover */
+    .pagination .page-link:hover {
+        color: #fff !important;
+        background-color: #3c6b4c;
+        /* efek hover hijau lebih terang */
+        border-color: #3c6b4c;
+    }
+
+    /* Mencentangkan elemen "Show entries" di atas tabel */
+    /* Atur header card jadi flex container */
+    .card-header.pb-0 {
+        display: flex;
+        justify-content: space-between;
+        /* kiri-kanan */
+        align-items: center;
+        /* lurus vertikal */
+    }
+
+    /* Pastikan judul tidak menambah jarak aneh */
+    .card-header.pb-0 h6 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    /* Ratakan dropdown "Show entries" agar sejajar */
+    .dataTables_length {
+        float: none !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center;
+        gap: 5px;
+        /* jarak label dan dropdown */
+    }
+
+    /* Supaya tidak nempel terlalu dekat ke kanan */
+    .card-header.pb-0 .dataTables_length {
+        margin-right: 10px !important;
+    }
+
+
+
+    /* Selektor bawaan DataTables */
+    .dataTables_length select {
+        min-width: 70px;
+        width: auto;
+        padding: 4px 8px;
+    }
+
+    /* Pastikan elemen header pakai flexbox */
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* rata tengah vertikal */
+    }
+
+    /* Ratakan kontainer length bawaan DataTables */
+    #lengthContainer .dataTables_length {
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+    /* Hapus margin label bawaan DataTables */
+    #lengthContainer label {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        /* beri jarak kecil antara "Show" dan dropdown */
+    }
+
+    /* Sedikit styling opsional untuk dropdown */
+    #lengthContainer select {
+        padding: 2px 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .dataTables_wrapper {
+        margin-top: 10px;
+        /* jarak antara header dan tabel */
+    }
+
+    #tabelSaya {
+        border-spacing: 0 8px;
+        /* jarak antar baris tabel (opsional) */
+    }
+
+    /* Bungkus info dan pagination di satu baris */
+    .dataTables_wrapper .row:last-child {
+        display: flex !important;
+        justify-content: space-between;
+        /* Jarak kiri-kanan rapi */
+        align-items: center;
+        /* Sejajarkan secara vertikal */
+        margin-top: 10px;
+    }
+
+    /* Info teks */
+    .dataTables_info {
+        margin: 0 !important;
+        padding-left: 10px;
+        font-size: 14px;
+
+    }
+
+    /* Pagination */
+    .dataTables_paginate {
+        margin: 0 !important;
+        padding-right: 10px;
+    }
