@@ -32,7 +32,16 @@
                                         </a>
                                     </div>
                                 </div>
-
+                                <div class="d-flex align-items-center gap-2">
+                                    <label for="showEntries">Tampilkan</label>
+                                    <select id="showEntries" class="form-select form-select-sm" style="width: auto;">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    <span>entri</span>
+                                </div>
                                 {{-- UBAH FORM MENJADI SEPERTI INI --}}
                                 <form method="GET" class="d-flex flex-column flex-md-row gap-2">
                                     {{-- TAMBAHKAN DROPDOWN FILTER TAHUN DI SINI --}}
@@ -50,18 +59,12 @@
                                         </select>
                                     </div>
 
-                                    {{-- Form pencarian yang sudah ada --}}
+                                    {{-- Form pencarian  --}}
                                     <div class="input-group w-auto">
-                                        <input type="text" name="search" class="form-control" placeholder="Cari Data..."
-                                            value="{{ request('search') }}">
-                                        <button class="btn-tambah-utama" type="submit">Cari</button>
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                            id="liveSearchInput">
 
-                                    {{-- Tombol Reset untuk membersihkan semua filter --}}
-                                    @if (request('search') || request('tahun'))
-                                        <a href="{{ route('rencanakerja') }}" class="btn btn-secondary"> <i
-                                                class="fas fa-sync-alt"></i></a>
-                                    @endif
+                                    </div>
                                 </form>
                             </div>
                             {{-- --- aksi buka kunci --- --}}
@@ -115,7 +118,7 @@
                                     <div class="top-scrollbar-content"></div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="detail-table" id="TableRencanaAksi" style="min-width: 2500px;">
+                                    <table class="detail-table" id="dataTable" style="min-width: 2500px;">
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 50px;">No</th>
@@ -136,12 +139,12 @@
                                                 <th class="text-center" style="width: 120px;">Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="dataTabelBody">
                                             @foreach ($rencana as $data)
                                                 <tr id="row-{{ $data->id }}"
                                                     class="{{ $data->input === 'manual' ? 'highlight-manual-renja' : '' }}">
 
-                                                    <td class="text-center">{{ $rencana->firstItem() + $loop->index }}
+                                                    <td class="text-center">{{ $loop->index }}
                                                     </td>
                                                     <td class="text-center">{{ $data->subprogram->subprogram ?? '-' }}
                                                     </td>
@@ -250,10 +253,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <!-- Pagination -->
-                                <div class="mt-3">
-                                    {{ $rencana->links('vendor.pagination.bootstrap-5') }}
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                                    <div id="paginationInfo"></div>
+                                    <div id="paginationControls"></div>
                                 </div>
                             </div>
                         </div>

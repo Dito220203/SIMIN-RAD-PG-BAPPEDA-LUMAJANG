@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white">Dashboard</a></li>
                         <li class="breadcrumb-item text-sm text-white active" aria-current="page">Rencana Aksi</li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Rencana Aksi</h6>
+                    {{-- <h6 class="font-weight-bolder text-white mb-0">Rencana Aksi</h6> --}}
                 </nav>
 
                 <div class="ms-md-auto pe-md-1 d-flex align-items-center">
@@ -40,16 +40,19 @@
                     </div>
 
                     <div class="card-body px-0 pt-0 pb-2">
+                        <div class="top-scrollbar-wrapper">
+                            <div class="top-scrollbar-content"></div>
+                        </div>
                         <div class="table-responsive p-0">
                             <table id="tabelSaya" class="table align-items-center mb-0">
-                                <thead class="bg-light">
+                                <thead>
                                     <tr>
                                         <th class="text-center">NO</th>
                                         <th class="text-center">STRATEGI</th>
-                                        <th>RENCANA AKSI / AKTIVITAS</th>
-                                        <th>SUB KEGIATAN</th>
-                                        <th>KEGIATAN</th>
-                                        <th>PROGRAM</th>
+                                        <th class="kolom-panjang" >RENCANA AKSI / AKTIVITAS</th>
+                                        <th class="kolom-panjang">SUB KEGIATAN</th>
+                                        <th class="kolom-panjang">KEGIATAN</th>
+                                        <th class="kolom-panjang">PROGRAM</th>
                                         <th>LOKASI</th>
                                         <th class="text-center">VOLUME TARGET</th>
                                         <th class="text-center">SATUAN</th>
@@ -103,7 +106,6 @@
 
                                         </tr>
                                     @empty
-
                                     @endforelse
                                 </tbody>
                             </table>
@@ -121,4 +123,47 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('js/progres-tabel.js') }}"></script>
+
+    {{-- <script src="{{ asset('js/progres-tabel.js') }}"></script> --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Temukan semua elemen
+            const topScroller = document.querySelector(".top-scrollbar-wrapper");
+            const topContent = document.querySelector(".top-scrollbar-content");
+            const bottomScroller = document.querySelector(".table-responsive");
+            const mainTable = document.querySelector("#tabelSaya");
+
+            // Pastikan semua elemen ada
+            if (topScroller && bottomScroller && mainTable) {
+
+                // Fungsi untuk mengatur lebar scrollbar atas
+                function setTopScrollWidth() {
+                    topContent.style.width = mainTable.scrollWidth + 'px';
+                }
+
+                // 2. Set lebar awal
+                setTopScrollWidth();
+
+                // 3. Sinkronisasi scroll dari ATAS ke BAWAH
+                topScroller.addEventListener("scroll", function() {
+                    bottomScroller.scrollLeft = topScroller.scrollLeft;
+                });
+
+                // 4. Sinkronisasi scroll dari BAWAH ke ATAS
+                bottomScroller.addEventListener("scroll", function() {
+                    topScroller.scrollLeft = bottomScroller.scrollLeft;
+                });
+
+                // 5. (PENTING) Update lebar jika tabel berubah
+                // Ini untuk jaga-jaga jika progres-tabel.js mengubah lebar tabel
+                const observer = new ResizeObserver(entries => {
+                    for (let entry of entries) {
+                        setTopScrollWidth();
+                    }
+                });
+                observer.observe(mainTable);
+            }
+        });
+    </script>
 @endpush

@@ -129,8 +129,8 @@
                                     <div id="hidden-inputs-container" style="display: none;"></div>
 
                                     <div class="mt-2">
-                                        <label class="form-label">Keterangan</label>
-                                        <textarea name="keterangan" class="form-control" rows="3" required>{{ old('keterangan') }}</textarea>
+                                        <label class="form-label">Keterangan ( Opsional )</label>
+                                        <textarea name="keterangan" class="form-control" rows="3" >{{ old('keterangan') }}</textarea>
                                     </div>
 
                                 </fieldset>

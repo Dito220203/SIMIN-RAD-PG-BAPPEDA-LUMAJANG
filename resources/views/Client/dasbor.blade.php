@@ -9,7 +9,7 @@
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white">Home</a></li>
                         <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+                    {{-- <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6> --}}
                 </nav>
                 <div class="ms-md-auto pe-md-1 d-flex align-items-center">
                     <div class="input-group">
@@ -111,7 +111,8 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Progres Kegiatan</p>
                                     <h5 class="font-weight-bolder">
-                                        {{ $progres }}
+                                       {{ $totalProgresCount }}
+
                                     </h5>
                                     {{-- <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -132,11 +133,22 @@
             <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Progres Kerja Per Tahun</h6>
-                        <p class="text-sm mb-0">
-                            <i class="fa fa-check text-info"></i>
-                            <span class="font-weight-bold">Rata-Rata Progres</span> Bulanan
-                        </p>
+                         <h6 class="text-capitalize">Progres Kerja Per Tahun</h6>
+        <p class="text-sm mb-0">
+            <i class="fa fa-check text-info"></i>
+            <span class="font-weight-bold">Rata-Rata Progres</span> Tahun Ini
+        </p>
+        <!-- FILTER TAHUN -->
+  <select id="filterTahun" class="form-select" style="width:150px;">
+    @foreach ($tahunList as $tahun)
+        <option value="{{ $tahun }}" {{ $tahun == date('Y') ? 'selected' : '' }}>
+            {{ $tahun }}
+        </option>
+    @endforeach
+</select>
+
+
+
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
@@ -145,54 +157,55 @@
                     </div>
                 </div>
             </div>
-           <div class="col-lg-5">
-    <div class="card card-carousel overflow-hidden h-100 p-0">
-        <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="5000"> {{-- Tambahkan data-bs-interval untuk mengatur waktu ganti --}}
+            <div class="col-lg-5">
+                <div class="card card-carousel overflow-hidden h-100 p-0">
+                    <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel"
+                        data-bs-interval="5000"> {{-- Tambahkan data-bs-interval untuk mengatur waktu ganti --}}
 
-            {{-- INDIKATOR CAROUSEL DINAMIS --}}
-            <div class="carousel-indicators">
-                @foreach ($banners as $index => $banner)
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}"
-                        class="{{ $index == 0 ? 'active' : '' }}" {{ $index == 0 ? 'aria-current="true"' : '' }}
-                        aria-label="Slide {{ $index + 1 }}"></button>
-                @endforeach
-            </div>
-            {{-- AKHIR INDIKATOR CAROUSEL DINAMIS --}}
-
-            <div class="carousel-inner border-radius-lg h-100">
-
-                {{-- MENGAMBIL DATA DAN GAMBAR DARI TABEL BANNER --}}
-                @foreach ($banners as $index => $banner)
-                    <div class="carousel-item h-100 {{ $index == 0 ? 'active' : '' }}"
-     style="background-image: url('{{ asset('storage/' . $banner->file) }}'); background-size: cover; background-position: center;">
-                        <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                            <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                <i class="ni ni-camera-compact text-dark opacity-10"></i>
-                            </div>
-
-                            <h5 class="text-black mb-1">{{ $banner->judul }}</h5>
-
-
+                        {{-- INDIKATOR CAROUSEL DINAMIS --}}
+                        <div class="carousel-indicators">
+                            @foreach ($banners as $index => $banner)
+                                <button type="button" data-bs-target="#carouselExampleCaptions"
+                                    data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
+                                    {{ $index == 0 ? 'aria-current="true"' : '' }}
+                                    aria-label="Slide {{ $index + 1 }}"></button>
+                            @endforeach
                         </div>
+                        {{-- AKHIR INDIKATOR CAROUSEL DINAMIS --}}
+
+                        <div class="carousel-inner border-radius-lg h-100">
+                            {{-- MENGAMBIL DATA DAN GAMBAR DARI TABEL BANNER --}}
+                            @foreach ($banners as $index => $banner)
+                                <div class="carousel-item h-100 {{ $index == 0 ? 'active' : '' }}" {{-- Pastikan item pertama tetap 'active' --}}
+                                    style="background-image: url('{{ asset('storage/' . $banner->file) }}'); background-size: cover;">
+
+                                    <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                                        <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                                            <i class="ni ni-camera-compact text-dark opacity-10"></i>
+                                        </div>
+
+                                        <h5 class="text-white mb-1">{{ $banner->judul }}</h5>
+
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        {{-- Carousel Controls (Prev/Next) --}}
+                        <button class="carousel-control-prev w-5 me-3" type="button"
+                            data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next w-5 me-3" type="button"
+                            data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                @endforeach
-
+                </div>
             </div>
-
-            {{-- Carousel Controls (Prev/Next) --}}
-            <button class="carousel-control-prev w-5 me-3" type="button"
-                data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next w-5 me-3" type="button"
-                data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-</div>
 
         </div>
         <div class="row mt-4">
@@ -420,3 +433,47 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+    gradientStroke1.addColorStop(1, "rgba(94,114,228,0.2)");
+    gradientStroke1.addColorStop(0.2, "rgba(94,114,228,0.0)");
+    gradientStroke1.addColorStop(0, "rgba(94,114,228,0)");
+
+    var dataByYear = @json($dataByYear);
+    var tahunDefault = "{{ date('Y') }}";
+
+    var chartLine = new Chart(ctx1, {
+        type: "line",
+        data: {
+            labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+            datasets: [{
+                label: "Jumlah Progres",
+                borderColor: "#718355",
+                backgroundColor: gradientStroke1,
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                data: dataByYear[tahunDefault] ?? [],
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false }},
+        }
+    });
+
+    // FILTER TAHUN
+    document.getElementById("filterTahun").addEventListener("change", function () {
+        let tahun = this.value;
+        chartLine.data.datasets[0].data = dataByYear[tahun] ?? [];
+        chartLine.update();
+    });
+</script>
+@endpush
+
+
+

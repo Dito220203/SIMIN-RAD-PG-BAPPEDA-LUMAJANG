@@ -17,25 +17,10 @@ class PenggunaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
 
-        $query = Pengguna::with('opd'); // ikut load OPD biar lebih efisien
+        $pengguna = Pengguna::all();
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nama', 'like', "%{$search}%")
-                    ->orWhere('username', 'like', "%{$search}%")
-                    ->orWhere('level', 'like', "%{$search}%");
-            })
-                ->orWhereHas('opd', function ($q) use ($search) {
-                    $q->where('nama', 'like', "%{$search}%");
-                });
-        }
-
-        $pengguna = $query->paginate(10);
-        $pengguna->appends($request->only('search'));
-
-        return view('admin.Pengguna.index', compact('pengguna', 'search'));
+        return view('admin.Pengguna.index', compact('pengguna'));
     }
 
 

@@ -22,21 +22,25 @@
                                 <a href="{{ route('pengguna.create') }}" class="btn btn-tambah-utama">
                                     + Tambah Pengguna
                                 </a>
-                                <div class="col-12 col-lg-auto">
-                                    <form method="GET" class="input-group w-auto">
-                                        <input type="text" name="search" class="form-control" placeholder="Cari Data"
-                                            value="{{ request('search') }}">
-                                        <button class="btn btn-tambah-utama" type="submit">Cari</button>
-                                        @if (request('search'))
-                                            <a href="{{ route('pengguna') }}" class="btn btn-secondary">Reset</a>
-                                        @endif
-                                    </form>
+                                 <div class="d-flex align-items-center gap-2">
+                                    <label for="showEntries">Tampilkan</label>
+                                    <select id="showEntries" class="form-select form-select-sm" style="width: auto;">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    <span>entri</span>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                            id="liveSearchInput">
                                 </div>
                             </div>
 
                             <!-- Table -->
                             <div class="table-responsive">
-                                <table class="detail-table" id="TablePengguna">
+                                <table class="detail-table" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -46,10 +50,10 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="dataTabelBody">
                                         @foreach ($pengguna as $data)
                                             <tr>
-                                                <td>{{ $pengguna->firstItem() + $loop->index }}</td>
+                                                <td>{{ $loop->index }}</td>
                                                 <td>{{ $data->username }}</td>
                                                 <td>{{ $data->opd->nama ?? '-' }}</td>
 
@@ -82,8 +86,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="mt-3">
-                                {{ $pengguna->links('vendor.pagination.bootstrap-5') }}
+                             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                                <div id="paginationInfo"></div>
+                                <div id="paginationControls"></div>
                             </div>
                             <!-- End Table -->
                         </div>

@@ -14,19 +14,10 @@ class OpdController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
 
-        $query = Opd::where('delete_at', '0');
+        $opd = Opd::where('delete_at', '0')->get();
 
-        if ($search) {
-            $query->where('nama', 'like', "%{$search}%")
-                ->orWhere('status', 'like', "%{$search}%");
-        }
-
-        $opd = $query->paginate(10);
-        $opd->appends($request->only('search'));
-
-        return view('admin.Opd.index', compact('opd', 'search'));
+        return view('admin.Opd.index', compact('opd'));
     }
 
 

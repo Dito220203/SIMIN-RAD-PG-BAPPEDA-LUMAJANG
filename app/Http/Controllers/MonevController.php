@@ -21,74 +21,44 @@ use Illuminate\Support\Str;
 
 class MonevController extends Controller
 {
-    public function index(Request $request)
+   public function index(Request $request)
     {
         $user = Auth::guard('pengguna')->user();
         $query = Monev::query();
 
-        // ✅ Load relasi
+        // ✅ Load relasi (TETAP)
         $query->with(['opd', 'subprogram', 'fotoProgres', 'map']);
 
-        // ✅ Ambil daftar tahun
+        // ✅ Ambil daftar tahun (TETAP)
         $tahuns = RencanaKerja::select('tahun')->distinct()->orderBy('tahun', 'desc')->pluck('tahun');
 
-        // ✅ Batasi berdasarkan user (kecuali Super Admin)
+        // ✅ Batasi berdasarkan user (kecuali Super Admin) (TETAP)
         if ($user->level !== 'Super Admin') {
             $query->where('id_pengguna', $user->id);
         }
 
-        // ✅ Filter Tahun
+        // ✅ Filter Tahun (TETAP)
         if ($request->filled('tahun')) {
             $query->whereHas('rencanakerja', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
             });
         }
 
-        // ✅ Filter Search (dibungkus supaya tidak merusak filter tahun)
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                // ✅ Kolom yang ada langsung di tabel 'monevs' (dengan nama yang sudah dikoreksi)
-                $q->where('anggaran', 'like', "%{$search}%")
-                    ->orWhere('volumeTarget', 'like', "%{$search}%")      // <-- DIUBAH DARI 'volume'
-                    ->orWhere('satuan_realisasi', 'like', "%{$search}%")  // <-- DIUBAH DARI 'satuan'
-                    ->orWhere('sumberdana', 'like', "%{$search}%")
-                    ->orWhere('uraian', 'like', "%{$search}%")
+        // DIHAPUS: Seluruh blok logika Filter Search if ($request->filled('search')) { ... }
+        // Blok ini telah dihapus.
 
-                    // ✅ Mencari di dalam relasi 'opd'
-                    ->orWhereHas('opd', function ($queryOpd) use ($search) {
-                        $queryOpd->where('nama', 'like', "%{$search}%");
-                    })
-
-                    // ✅ Mencari di dalam relasi 'subprogram'
-                    ->orWhereHas('subprogram', function ($querySub) use ($search) {
-                        $querySub->where('subprogram', 'like', "%{$search}%");
-                    })
-
-                    // ✅ Mencari di dalam relasi 'rencanakerja'
-                    ->orWhereHas('rencanakerja', function ($queryRenja) use ($search) {
-                        $queryRenja->where('rencana_aksi', 'like', "%{$search}%")
-                            ->orWhere('nama_program', 'like', "%{$search}%")
-                            ->orWhere('kegiatan', 'like', "%{$search}%")
-                            ->orWhere('sub_kegiatan', 'like', "%{$search}%")
-                            ->orWhere('lokasi', 'like', "%{$search}%")
-                            ->orWhere('volume', 'like', "%{$search}%")
-                            ->orWhere('satuan', 'like', "%{$search}%")
-                            ->orWhere('anggaran', 'like', "%{$search}%")
-                            ->orWhere('sumberdana', 'like', "%{$search}%")
-                            ->orWhere('tahun', 'like', "%{$search}%")
-                            ->orWhere('id_opd', 'like', "%{$search}%")
-                            ->orWhere('status', 'like', "%{$search}%");
-                    });
-            });
-        }
         // ...
 
-        // ✅ Pagination (DIUBAH DARI latest() MENJADI oldest())
-        $monev = $query->oldest()->paginate(10)->appends($request->query());
+        // MENGHAPUS PAGINATION: Mengganti paginate(10) dengan get()
+        // Mengganti $query->oldest()->paginate(10)->appends($request->query());
+        // Menjadi:
+        $monev = $query->oldest()->get(); // Ambil semua data tanpa pagination
+
         $opdIdsWithData = Monev::select('id_opd')->whereNotNull('id_opd')->distinct()->pluck('id_opd');
 
         $allOpds = Opd::whereIn('id', $opdIdsWithData)->orderBy('nama', 'asc')->get();
+
+        // Variabel yang dikirimkan ke view tidak berubah (karena 'search' tidak ada di compact sebelumnya)
         return view('admin.MonitoringEvaluasi.index', compact('monev', 'tahuns', 'allOpds'));
     }
 

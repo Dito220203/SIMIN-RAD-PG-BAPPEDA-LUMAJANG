@@ -1,6 +1,7 @@
 @extends('components.layout')
 
 @section('content')
+
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Tabel Rencana Aksi</h1>
@@ -17,7 +18,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                            {{-- BARIS UTAMA ATAS --}}
                             <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3 mt-3">
+
+                                {{-- KOLOM KIRI: TOMBOL TAMBAH DAN EXPORT --}}
                                 <div class="gap-2">
                                     @if (Auth::guard('pengguna')->user()->level === 'Super Admin')
                                         <div class="d-flex flex-column flex-sm-row gap-2">
@@ -25,7 +29,6 @@
                                                 <i class="fa-solid fa-plus me-1"></i>
                                                 Tambah Rencana Aksi
                                             </a>
-                                            {{-- BARU --}}
                                             <a href="{{ route('rencanaAksi.export.excel', request()->query()) }}"
                                                 class="btn btn-success">
                                                 <i class="fa-solid fa-file-excel me-1"></i>
@@ -35,38 +38,50 @@
                                     @endif
                                 </div>
 
+                                {{-- KOLOM KANAN: ENTRIES, FILTER TAHUN, SEARCHING --}}
+                                {{-- Menggunakan flex-wrap untuk responsif dan menempatkan setiap elemen di div-nya sendiri --}}
 
-                                <form id="filter-form" method="GET" class="d-flex flex-column flex-md-row gap-2">
+
+                                    <div class="d-flex align-items-center gap-2">
+                                    <label for="showEntries">Tampilkan</label>
+                                    <select id="showEntries" class="form-select form-select-sm" style="width: auto;">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    <span>entri</span>
+                                </div>
+
+                                    {{-- 2. DIV FILTER TAHUN --}}
+                                    <form id="filter-form" method="GET" class="d-flex flex-column flex-md-row gap-2">
+                                        <div class="input-group w-auto">
+                                            <label class="input-group-text" for="tahun-filter">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </label>
+                                            <select name="tahun" id="tahun-filter" class="form-select"
+                                                style="width: 150px;">
+                                                <option value="">Semua Tahun</option>
+                                                @foreach ($tahuns as $tahun)
+                                                    <option value="{{ $tahun }}"
+                                                        {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                                        {{ $tahun }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                         {{-- Form pencarian yang sudah ada --}}
                                     <div class="input-group w-auto">
-                                        <label class="input-group-text" for="tahun-filter">
-                                            <i class="fas fa-calendar-alt"></i>
-                                        </label>
-                                        {{-- TAMBAHKAN ID DI SINI --}}
-                                        <select name="tahun" id="tahun-filter" class="form-select" style="width: 150px;">
-                                            <option value="">Semua Tahun</option>
-                                            @foreach ($tahuns as $tahun)
-                                                <option value="{{ $tahun }}"
-                                                    {{ request('tahun') == $tahun ? 'selected' : '' }}>
-                                                    {{ $tahun }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                            id="liveSearchInput">
 
-                                    <div class="input-group w-auto">
-                                        <input type="text" name="search" class="form-control"
-                                            placeholder="Cari program, kegiatan, OPD..." value="{{ request('search') }}">
-                                        <button class="btn btn-tambah-utama" type="submit">
-                                            <i class="fa-solid fa-search"></i>
-                                        </button>
                                     </div>
+                                    </form>
 
-                                    @if (request('search') || request('tahun'))
-                                        <a href="{{ route('rencana6tahun') }}" class="btn btn-secondary">
-                                            <i class="fas fa-sync-alt"></i>
-                                        </a>
-                                    @endif
-                                </form>
+
+
+
+
                                 @push('scripts')
                                     <script>
                                         $(document).ready(function() {
@@ -79,13 +94,14 @@
                                     </script>
                                 @endpush
 
-                            </div>
+                            </div> {{-- Akhir dari div.d-flex.flex-column.flex-md-row (baris utama) --}}
+
                             <div class="table-container">
                                 <div class="top-scrollbar-container">
                                     <div class="top-scrollbar-content"></div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="detail-table" id="TableRencanaAksi" style="min-width: 2500px;">
+                                    <table class="detail-table" id="dataTable" style="min-width: 2500px;">
                                         <thead>
                                             <tr>
                                                 <th style="width: 50px;">No</th>
@@ -108,10 +124,10 @@
                                                 @endif
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="dataTabelBody">
                                             @foreach ($rencanaAksi as $data)
                                                 <tr>
-                                                    <td class="text-center">{{ $rencanaAksi->firstItem() + $loop->index }}
+                                                    <td class="text-center">{{ $loop->index }}
                                                     </td>
                                                     <td class="text-center">{{ $data->subprogram->subprogram ?? '-' }}</td>
                                                     <td>{{ $data->rencana_aksi }}</td>
@@ -124,7 +140,7 @@
                                                     <td>{{ $data->tahun }}</td>
                                                     <td>{{ $data->opd->nama ?? '-' }}</td>
 
-                                                     @php
+                                                    @php
                                                         $anggarans = explode('; ', $data->anggaran);
                                                         $sumberdanas = explode('; ', $data->sumberdana);
                                                     @endphp
@@ -136,7 +152,7 @@
                                                             @endforeach
                                                         </td>
                                                     @else
-                                                       <td class="align-middle">{{ $data->anggaran ?: '-' }}</td>
+                                                        <td class="align-middle">{{ $data->anggaran ?: '-' }}</td>
                                                     @endif
 
                                                     @if (count($sumberdanas) > 1)
@@ -175,9 +191,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <div class="mt-3">
-                                    {{ $rencanaAksi->links('vendor.pagination.bootstrap-5') }}
+                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                                    <div id="paginationInfo"></div>
+                                    <div id="paginationControls"></div>
                                 </div>
                             </div>
                         </div>

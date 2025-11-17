@@ -2933,7 +2933,7 @@ progress {
 .form-text {
   margin-top: 0.25rem;
   font-size: 0.875em;
-  color: #6c757d;
+  color: #000000;
 }
 
 .form-control {
@@ -28510,34 +28510,123 @@ pre[class*=language-] {
 .table-container {
     position: relative; /* Diperlukan untuk beberapa styling lanjutan jika ada */
 }
+/* ===============================================
+   KUSTOM TABEL & SCROLLBAR (VERSI FINAL)
+=============================================== */
 
-/* WADAH SCROLLBAR ATAS */
-.top-scrollbar-container {
-    overflow-x: auto;
-    overflow-y: hidden; /* Sembunyikan scrollbar vertikal yang mungkin muncul */
-    height: 12px; /* Sesuaikan dengan tinggi scrollbar bawah Anda */
-    margin-bottom: 8px; /* Beri sedikit jarak ke tabel */
-  scrollbar-width: thin;
-    scrollbar-color: #718355 #f1f1f1;
-  }
+/* 1.1 PENGATUR SCROLL VERTIKAL TABEL */
+.table-responsive {
+    max-height: 75vh; /* Atur tinggi maksimal tabel */
+    overflow-y: auto; /* Aktifkan scroll vertikal HANYA di sini */
+}
 
-/* KONTEN PALSU DI DALAM SCROLLBAR ATAS */
+/* 1. WADAH SCROLLBAR ATAS */
+.top-scrollbar-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 10px;
+  height: 10px; /* <- TINGGI WADAH (samakan dgn scrollbar) */
+}
 .top-scrollbar-content {
-    height: 1px; /* Cukup 1px karena hanya butuh lebarnya */
+  height: 1px;
 }
 
-/* PENYESUAIAN KECIL PADA CSS LAMA ANDA */
-/* Pastikan scrollbar bawah juga punya tinggi yang sama */
-.table-responsive::-webkit-scrollbar {
-    width: 8px;   /* Atur juga scrollbar vertikal jika perlu */
-    height: 8px;  /* SAMAKAN TINGGINYA dengan .top-scrollbar-container */
+/* 2. STYLE SCROLLBAR (UKURAN & WARNA) */
+.table-responsive::-webkit-scrollbar,
+.top-scrollbar-wrapper::-webkit-scrollbar {
+  width: 8px;   /* Untuk scrollbar vertikal (jika ada) */
+  height: 10px; /* <- TINGGI SCROLLBAR (atas & bawah) */
 }
-/* form global */
-.form-control:focus {
-            border-color: #718355;
-            box-shadow: 0 0 0 0.2rem #6B9071;
-        }
+
+.table-responsive::-webkit-scrollbar-track,
+.top-scrollbar-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb,
+.top-scrollbar-wrapper::-webkit-scrollbar-thumb {
+  background: #718355 !important; /* Paksa hijau tua */
+  border-radius: 5px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover,
+.top-scrollbar-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #B5C99A !important; /* Paksa hijau medium */
+}
+
+/* 3. STYLE HEADER TABEL */
+/* 3. STYLE HEADER TABEL (STICKY) */
+#tabelSaya thead th {
+  position: sticky; /* <- KUNCI UTAMANYA */
+  top: 0;           /* <- Menempel di paling atas */
+  z-index: 10;      /* <- Pastikan di atas konten body tabel */
+  background-color: #CFE1B9; /* Pindahkan background ke TH */
+  color: #718355;
+}
+
+
+/* (Untuk fix teks tidak terpotong) */
+#tabelSaya th,
+#tabelSaya td {
+white-space: normal !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 2. KELAS UNTUK KOLOM YANG BOLEH PANJANG & WRAP */
+/* (Misal: Rencana Aksi, Kegiatan, Sub Kegiatan) */
+#tabelSaya .kolom-panjang {
+  white-space: normal !important; /* Paksa teks turun (wrap) */
+  word-wrap: break-word;
+  min-width: 260px; /* Atur lebar MINIMAL (sesuaikan) */
+}
+/* 4. STYLE PAGINATION */
+.pagination .page-item {
+  margin: 0 0px; /* <-- ATUR JARAKNYA DI SINI. Coba 0px jika ingin dempet */
+}
+.pagination .page-item .page-link {
+  background-color: #CFE1B9;
+  color: #718355;
+  border: 1px solid #CFE1B9;
+  border-radius: 0.375rem;
+  margin: 0 0px;
+}
+.pagination .page-item.active .page-link {
+  background-color: #718355;
+  border-color: #718355;
+  color: #ffffff;
+}
+.pagination .page-item:not(.active) .page-link:hover {
+  background-color: #B5C99A;
+}
+/* (Ini perbaikan untuk tombol abu-abu) */
+.pagination .page-item.disabled .page-link {
+  background-color: #CFE1B9; /* Samakan tema */
+  color: #718355;           /* Samakan tema */
+  border-color: #CFE1B9;     /* Samakan tema */
+  opacity: 0.6;              /* Buat nonaktif */
+}
+
+/* 5. STYLE KONTROL TABEL LAINNYA */
+#lengthContainer .form-select {
+  border: 1px solid #B5C99A;
+  color: #718355;
+}
+#lengthContainer {
+  color: #718355;
+}
+#infoContainer {
+  color: #718355 !important;
+}
+
+/* 6. STYLE FORM (BONUS) */
+.form-control:focus,
 .form-select:focus {
-            border-color: #718355;
-            box-shadow: 0 0 0 0.2rem #6B9071;
-        }
+   border-color: #718355;
+   box-shadow: 0 0 0 0.2rem #6B9071;
+}
+
+.card-header h6 {
+  color: #718355; /* Ganti warna teks jadi hijau tua */
+}

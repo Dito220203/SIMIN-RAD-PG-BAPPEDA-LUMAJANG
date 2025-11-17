@@ -9,7 +9,7 @@
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white">Dashboard</a></li>
                         <li class="breadcrumb-item text-sm text-white active" aria-current="page">Progres Kegiatan </li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Progres Kegiatan</h6>
+                    {{-- <h6 class="font-weight-bolder text-white mb-0">Progres Kegiatan</h6> --}}
                 </nav>
                 <div class="ms-md-auto pe-md-1 d-flex align-items-center">
                     <div class="input-group">

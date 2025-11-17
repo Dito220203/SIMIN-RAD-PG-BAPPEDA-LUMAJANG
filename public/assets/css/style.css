@@ -308,7 +308,7 @@ h6 {
 .breadcrumb {
   font-size: 14px;
   font-family: "Nunito", sans-serif;
-  color: #6B9071;
+  color:#AEC3B0;
   font-weight: 600;
 }
 
@@ -318,15 +318,15 @@ h6 {
 }
 
 .breadcrumb a:hover {
-  color: #0F2A1D;
+  color:  #AEC3B0;
 }
 
 .breadcrumb .breadcrumb-item::before {
-  color: #899bbd;
+  color: #6B9071;
 }
 
 .breadcrumb .active {
-  color: #AEC3B0;
+  color:  #6B9071;
   font-weight: 600;
 }
 
@@ -338,18 +338,18 @@ h6 {
 .nav-tabs-bordered .nav-link {
   margin-bottom: -2px;
   border: none;
-  color: #2c384e;
+  color: #6B9071;
 }
 
 .nav-tabs-bordered .nav-link:hover,
 .nav-tabs-bordered .nav-link:focus {
-  color: #4154f1;
+  color: #6B9071;
 }
 
 .nav-tabs-bordered .nav-link.active {
   background-color: #fff;
-  color: #4154f1;
-  border-bottom: 2px solid #4154f1;
+  color: #6B9071;
+  border-bottom: 2px solid #6B9071;
 }
 
 /*--------------------------------------------------------------
@@ -1709,3 +1709,24 @@ h6 {
     z-index: 0;
 }
 
+/* ===============================================
+   STYLE KUSTOM UNTUK PAGINATION
+=============================================== */
+
+/* 1. Mengganti Warna Latar (BIRU) & Teks (PUTIH) yg AKTIF */
+.pagination .page-item.active .page-link {
+  background-color: #B5C99A; /* Warna hijau medium Anda */
+  border-color: #B5C99A;     /* Warna hijau medium Anda */
+  color: #ffffff;            /* Warna teks putih (jika perlu) */
+}
+
+/* 2. Mengganti Warna Teks (BIRU) yg TIDAK Aktif */
+.pagination .page-link {
+  color: #718355; /* Warna hijau tua Anda */
+}
+
+/* 3. (Opsional) Mengganti Warna Latar saat HOVER (Mouse di atas) */
+.pagination .page-item:not(.active) .page-link:hover {
+  background-color: #CFE1B9; /* Warna hijau sangat muda */
+  color: #718355;            /* Warna teks hijau tua */
+}

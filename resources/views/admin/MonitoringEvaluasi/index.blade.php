@@ -17,51 +17,59 @@
                 <div class="col-lg-12">
                     <div class="card ">
                         <div class="card-body">
-                            <div class="row g-3 align-items-center mb-3 mt-3">
+                            <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3 mt-3">
+                                <div class="d-flex flex-column flex-sm-row gap-2">
 
-                                @if (Auth::guard('pengguna')->user()->level === 'Super Admin')
-                                    <div class="col-12 col-md-auto">
-                                        <a href="{{ route('monev.export.excel', request()->query()) }}"
-                                            class="btn btn-success w-100">
-                                            <i class="fa-solid fa-file-excel me-1"></i> Export Excel
+                                    @if (Auth::guard('pengguna')->user()->level === 'Super Admin')
+                                        <div>
+                                            <a href="{{ route('monev.export.excel', request()->query()) }}"
+                                                class="btn btn-success w-100">
+                                                <i class="fa-solid fa-file-excel me-1"></i> Export Excel
+                                            </a>
+                                        </div>
+                                    @endif
+
+                                    <div>
+                                        <a href="{{ route('monev.export', ['tahun' => request('tahun'), 'search' => request('search')]) }}"
+                                            class="btn btn-danger w-100">
+                                            <i class="fas fa-file-pdf me-2"></i>Export PDF
                                         </a>
                                     </div>
-                                @endif
-                                <div class="col-12 col-md-auto">
-                                    <a href="{{ route('monev.export', ['tahun' => request('tahun'), 'search' => request('search')]) }}"
-                                        class="btn btn-danger w-100">
-                                        <i class="fas fa-file-pdf me-2"></i>Export PDF
-                                    </a>
+
                                 </div>
 
-                                {{-- Form Filter --}}
-                                <div class="col-12 col-md-auto ms-md-auto">
-                                    <form id="filter-form" method="GET" class="d-flex flex-column flex-md-row gap-2">
-                                        <div class="input-group w-auto">
-                                            <label class="input-group-text" for="tahun-filter"><i
-                                                    class="fas fa-calendar-alt"></i></label>
-                                            <select name="tahun" id="tahun-filter" class="form-select">
-                                                <option value="">Semua Tahun</option>
-                                                @foreach ($tahuns as $tahun)
-                                                    <option value="{{ $tahun }}"
-                                                        {{ request('tahun') == $tahun ? 'selected' : '' }}>
-                                                        {{ $tahun }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="input-group w-auto">
-                                            <input type="text" name="search" class="form-control"
-                                                placeholder="Cari data..." value="{{ request('search') }}">
-                                            <button class="btn btn-primary" type="submit"><i
-                                                    class="fas fa-search"></i></button>
-                                            @if (request('search') || request('tahun'))
-                                                <a href="{{ route('monev') }}" class="btn btn-secondary"
-                                                    title="Reset Filter"><i class="fas fa-sync-alt"></i></a>
-                                            @endif
-                                        </div>
-                                    </form>
+                                <div class="d-flex align-items-center gap-2">
+                                    <label for="showEntries">Tampilkan</label>
+                                    <select id="showEntries" class="form-select form-select-sm" style="width: auto;">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    <span>entri</span>
                                 </div>
+                                {{-- Form Filter --}}
+                                <form id="filter-form" method="GET" class="d-flex flex-column flex-md-row gap-2">
+                                    <div class="input-group w-auto">
+                                        <label class="input-group-text" for="tahun-filter"><i
+                                                class="fas fa-calendar-alt"></i></label>
+                                        <select name="tahun" id="tahun-filter" class="form-select">
+                                            <option value="">Semua Tahun</option>
+                                            @foreach ($tahuns as $tahun)
+                                                <option value="{{ $tahun }}"
+                                                    {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                                    {{ $tahun }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- Form pencarian  --}}
+                                    <div class="input-group w-auto">
+                                        <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                            id="liveSearchInput">
+
+                                    </div>
+                                </form>
                             </div>
                             {{-- --- aksi buka kunci --- --}}
                             @if (Auth::guard('pengguna')->user()->level === 'Super Admin' && isset($allOpds) && $allOpds->isNotEmpty())
@@ -114,7 +122,7 @@
 
                                 <!-- Table -->
                                 <div class="table-responsive">
-                                    <table class="detail-table" id="TableMonev" style="min-width: 3000px;">
+                                    <table class="detail-table" id="dataTable" style="min-width: 3000px;">
                                         @php
                                             $adaPesan = $monev->contains(function ($item) {
                                                 return !empty($item->pesan);
@@ -148,10 +156,10 @@
                                                 <th class="text-center" style="width: 400px;">Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="dataTabelBody">
                                             @foreach ($monev as $data)
                                                 <tr id="row-{{ $data->id }}">
-                                                    <td class="text-center">{{ $monev->firstItem() + $loop->index }}</td>
+                                                    <td class="text-center">{{ $loop->index }}</td>
                                                     <td class="text-center">{{ $data->subprogram->subprogram ?? '-' }}
                                                     </td>
                                                     <td>{{ $data->rencanakerja->rencana_aksi ?? '-' }}</td>
@@ -546,10 +554,11 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="mt-3">
-                                    {{ $monev->links('vendor.pagination.bootstrap-5') }}
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                                    <div id="paginationInfo"></div>
+                                    <div id="paginationControls"></div>
                                 </div>
-
                             </div>
                             <!-- End Table -->
                         </div>
