@@ -15,10 +15,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">{{ $notifikasi->count() ?? 0 }}</span>
+                        <span class="badge bg-warning text-black badge-number">{{ $notifikasi->count() ?? 0 }}</span>
                     </a>
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <ul class="dropdown-menu dropdown-menu-end  dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
                             You have {{ $notifikasi->count() ?? 0 }} new notifications
                         </li>
@@ -48,7 +48,7 @@
                                         <p>{{ $item->created_at->diffForHumans() }}</p>
                                     </div>
                                 @elseif($item instanceof \App\Models\ProgresKerja)
-                                    <i class="bi bi-card-list text-primary"></i>
+                                    <i class="bi bi-card-list text-success"></i>
                                     <div>
                                         <h4>
                                             @php
@@ -68,7 +68,7 @@
                                         <p>{{ $item->created_at->diffForHumans() }}</p>
                                     </div>
                                 @elseif($item instanceof \App\Models\Monev)
-                                    <i class="bi bi-clipboard-check text-warning"></i>
+                                    <i class="bi bi-clipboard-check text-success"></i>
                                     <div>
                                         <h4>
                                             @php
@@ -148,9 +148,9 @@
                                 @if ($item instanceof \App\Models\RencanaKerja)
                                     <i class="bi bi-journal-check text-success fs-4"></i>
                                 @elseif($item instanceof \App\Models\ProgresKerja)
-                                    <i class="bi bi-card-list text-primary fs-4"></i>
+                                    <i class="bi bi-card-list text-success fs-4"></i>
                                 @elseif($item instanceof \App\Models\Monev)
-                                    <i class="bi bi-clipboard-check text-warning fs-4"></i>
+                                    <i class="bi bi-clipboard-check text-success fs-4"></i>
                                 @endif
                                 <div class="d-flex gap-2 w-100 justify-content-between">
                                     <div>

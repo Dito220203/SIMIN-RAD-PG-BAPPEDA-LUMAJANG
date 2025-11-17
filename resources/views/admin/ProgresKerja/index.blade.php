@@ -102,39 +102,39 @@
                                         aria-labelledby="detailModalLabel{{ $data->id }}" aria-hidden="true">
                                         <div class="modal-dialog modal-super-xl modal-dialog-centered">
                                             <div class="modal-content">
-                                                <div class="modal-header bg-primary text-white">
+                                                <div class="modal-header card-dashboard text-white">
                                                     <h5 class="modal-title" id="detailModalLabel{{ $data->id }}">
                                                         <i class="bi bi-info-circle me-2"></i>Detail Progres
                                                     </h5>
                                                     <button type="button" class="btn-close btn-close-white"
                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body text-hijau-kustom">
                                                     <div class="row g-4">
 
                                                         <div class="col-md-6">
                                                             <div>
-                                                                <h6 class="mb-3 fw-bold"><i
-                                                                        class="bi bi-list-ul text-primary me-2"></i>Informasi
+                                                                <h6 class="mb-3  fw-bold"><i
+                                                                        class="bi bi-list-ul  me-2"></i>Informasi
                                                                     Detail</h6>
-                                                                <div class="table-wrapper">
-                                                                    <table class="table table-hover mb-0">
+                                                                <div class="table-wrapper ">
+                                                                    <table class="table table-hover  mb-0">
                                                                         <tr>
-                                                                            <th class="bg-light th-detail-lebar"><i
+                                                                            <th class="bg-light text-hijau-kustom th-detail-lebar"><i
                                                                                     class="bi bi-clipboard-check me-2"></i>Rencana
                                                                                 Aksi</th>
-                                                                            <td class="fw-medium">
+                                                                            <td class="fw-medium text-hijau-kustom">
                                                                                 {{ $data->monev?->rencanakerja?->rencana_aksi ?? '-' }}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th class="bg-light"><i
+                                                                            <th class="bg-light  text-hijau-kustom"><i
                                                                                     class="bi bi-calendar me-2"></i>Tahun
                                                                             </th>
-                                                                            <td>{{ $data->monev->tahun ?? '-' }}</td>
+                                                                            <td class="text-hijau-kustom">{{ $data->monev->tahun ?? '-' }}</td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th class="bg-light"><i
+                                                                            <th class="bg-light  text-hijau-kustom"><i
                                                                                     class="bi bi-flag me-2"></i>Status</th>
                                                                             <td><span
                                                                                     class="badge {{ $data->status === 'Valid' ? 'bg-success' : 'bg-secondary' }}">{{ $data->status }}</span>
@@ -142,16 +142,16 @@
                                                                         </tr>
 
                                                                         <tr>
-                                                                            <th class="bg-light"><i
+                                                                            <th class="bg-light text-hijau-kustom"><i
                                                                                     class="bi bi-card-text me-2"></i>Uraian
                                                                             </th>
                                                                             <td>
-                                                                                <div class="keterangan-panjang">
+                                                                                <div class="keterangan-panjang text-hijau-kustom">
                                                                                     @if ($data->monev && $data->monev->fotoProgres->isNotEmpty())
                                                                                         {{ $data->monev->fotoProgres->first()->deskripsi ?? 'Tidak ada uraian.' }}
                                                                                     @else
                                                                                         <span
-                                                                                            class="text-muted fst-italic">Tidak
+                                                                                            class="text-muted fst- text-hijau-kustom">Tidak
                                                                                             ada uraian</span>
                                                                                     @endif
                                                                                 </div>
@@ -165,19 +165,19 @@
                                                             </div>
 
                                                             <div class="mt-4">
-                                                                <h6 class="mb-3 fw-bold"><i
-                                                                        class="bi bi-geo-alt-fill text-danger me-2"></i>Lokasi
+                                                                <h6 class="mb-3 fw-bold text-hijau-kustom"><i
+                                                                        class="bi bi-geo-alt-fill  me-2"></i>Lokasi
                                                                     Peta</h6>
                                                                 @if ($data->monev && $data->monev->map)
                                                                     <div id="detailMapProgres{{ $data->id }}"
-                                                                        class="peta-container rounded shadow-sm"
+                                                                        class="peta-container rounded shadow-sm text-hijau-kustom"
                                                                         data-latitude="{{ $data->monev->map->latitude }}"
                                                                         data-longitude="{{ $data->monev->map->longitude }}">
                                                                     </div>
                                                                 @else
-                                                                    <div class="alert alert-light placeholder-container">
-                                                                        <i class="bi bi-map placeholder-icon"></i>
-                                                                        <p class="mb-0 mt-3 text-muted">Lokasi belum
+                                                                    <div class="alert alert-light placeholder-container text-hijau-kustom">
+                                                                        <i class="bi bi-map  text-hijau-kustom placeholder-icon"></i>
+                                                                        <p class="mb-0 mt-3 ">Lokasi belum
                                                                             ditandai</p>
                                                                     </div>
                                                                 @endif
@@ -185,10 +185,10 @@
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <h6 class="mb-3 fw-bold"><i
-                                                                    class="bi bi-images text-primary me-2"></i>Dokumentasi
+                                                            <h6 class="mb-3 fw- text-hijau-kustom"><i
+                                                                    class="bi bi-images me-2"></i>Dokumentasi
                                                                 Foto</h6>
-                                                            <div class="foto-container-scrollable">
+                                                            <div class="foto-container-scrollable text-hijau-kustom">
                                                                 @if ($data->monev && $data->monev->fotoProgres->isNotEmpty())
                                                                     <div class="row g-3">
                                                                         @foreach ($data->monev->fotoProgres as $foto)
@@ -205,9 +205,9 @@
                                                                     </div>
                                                                 @else
                                                                     <div
-                                                                        class="alert alert-light text-center m-0 placeholder-container">
-                                                                        <i class="bi bi-image placeholder-icon"></i>
-                                                                        <p class="mb-0 mt-2 text-muted">Belum ada foto</p>
+                                                                        class="alert alert-light text-center m-0 placeholder-container text-hijau-kustom">
+                                                                        <i class="bi bi-image text-hijau-kustom placeholder-icon"></i>
+                                                                        <p class="mb-0 mt-2 ">Belum ada foto</p>
                                                                     </div>
                                                                 @endif
                                                             </div>

@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-icon shadow-primary text-center rounded-circle">
                                     <i class="ni ni-credit-card text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-icon shadow-danger text-center rounded-circle">
                                     <i class="ni ni-calendar-grid-58 text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-icon shadow-success text-center rounded-circle">
                                     <i class="ni ni-archive-2 text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-icon shadow-warning text-center rounded-circle">
                                     <i class="ni ni-image text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -163,15 +163,14 @@
 
                 {{-- MENGAMBIL DATA DAN GAMBAR DARI TABEL BANNER --}}
                 @foreach ($banners as $index => $banner)
-                    <div class="carousel-item h-100 {{ $index == 0 ? 'active' : '' }}" {{-- Pastikan item pertama tetap 'active' --}}
-                        style="background-image: url('{{ asset('storage/' . $banner->file) }}'); background-size: cover;">
-
+                    <div class="carousel-item h-100 {{ $index == 0 ? 'active' : '' }}"
+     style="background-image: url('{{ asset('storage/' . $banner->file) }}'); background-size: cover; background-position: center;">
                         <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                             <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                 <i class="ni ni-camera-compact text-dark opacity-10"></i>
                             </div>
 
-                            <h5 class="text-white mb-1">{{ $banner->judul }}</h5>
+                            <h5 class="text-black mb-1">{{ $banner->judul }}</h5>
 
 
                         </div>

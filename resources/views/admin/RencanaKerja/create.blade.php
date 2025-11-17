@@ -183,7 +183,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" id="tambah-ke-tabel">Tambah ke Tabel</button>
+                    <button type="button" class="btn btn-success" id="tambah-ke-tabel">Tambah ke Tabel</button>
                 </div>
             </div>
         </div>

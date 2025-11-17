@@ -447,7 +447,7 @@
                                             aria-labelledby="DetailLabel{{ $data->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-super-xl modal-dialog-centered">
                                                 <div class="modal-content">
-                                                    <div class="modal-header bg-primary text-white">
+                                                    <div class="modal-header card-dashboard text-white">
                                                         <h5 class="modal-title" id="DetailLabel{{ $data->id }}">
                                                             <i class="bi bi-info-circle me-2"></i>Detail Monitoring &
                                                             Evaluasi
@@ -460,12 +460,12 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="keterangan-panjang">
-                                                                    <h6 class="mb-3 fw-bold"><i
-                                                                            class="bi bi-list-ul text-primary me-2"></i>Detail
+                                                                    <h6 class="mb-3 text-hijau-kustom fw-bold"><i
+                                                                            class="bi bi-list   me-2"></i>Detail
                                                                         Dokumentasi</h6>
                                                                     <div>
-                                                                        <h6 class="mb-2 fw-bold"><i
-                                                                                class="bi bi-card-text me-2"></i>Keterangan
+                                                                        <h6 class="mb-2 text-hijau-kustom fw-bold"><i
+                                                                                class="bi bi-card-text text-hijau-kustom me-2"></i>Keterangan
                                                                         </h6>
 
                                                                         <div class="keterangan-box">
@@ -474,7 +474,7 @@
                                                                                     {{ $data->fotoProgres->first()->deskripsi ?: 'Tidak ada uraian.' }}
                                                                                 @else
                                                                                     <span
-                                                                                        class="text-muted fst-italic">Tidak
+                                                                                        class="text-hijau-kustom fst-italic">Tidak
                                                                                         ada uraian</span>
                                                                                 @endif
                                                                             </p>
@@ -483,8 +483,8 @@
                                                                 </div>
 
                                                                 <div class="mt-4">
-                                                                    <h6 class="mb-3 fw-bold"><i
-                                                                            class="bi bi-geo-alt-fill text-danger me-2"></i>Lokasi
+                                                                    <h6 class="mb-3 text-hijau-kustom fw-bold"><i
+                                                                            class="bi bi-geo-alt-fill me-2"></i>Lokasi
                                                                         Peta</h6>
                                                                     @if ($data->map && $data->map->latitude && $data->map->longitude)
                                                                         <div id="detailMap{{ $data->id }}"
@@ -494,9 +494,9 @@
                                                                         </div>
                                                                     @else
                                                                         <div
-                                                                            class="alert alert-light placeholder-container">
-                                                                            <i class="bi bi-map placeholder-icon"></i>
-                                                                            <p class="mb-0 mt-3 text-muted">Lokasi belum
+                                                                            class="alert alert-light text-hijau-kustom placeholder-container">
+                                                                            <i class="bi bi-map text-hijau-kustom placeholder-icon"></i>
+                                                                            <p class="mb-0 mt-3 text-hijau-kustom">Lokasi belum
                                                                                 ditandai</p>
                                                                         </div>
                                                                     @endif
@@ -504,8 +504,8 @@
                                                             </div>
 
                                                             <div class="col-md-6">
-                                                                <h6 class="mb-3 fw-bold"><i
-                                                                        class="bi bi-images text-primary me-2"></i>Dokumentasi
+                                                                <h6 class="mb-3 text-hijau-kustom fw-bold"><i
+                                                                        class="bi bi-images text-hijau-kustom me-2"></i>Dokumentasi
                                                                     Foto</h6>
                                                                 <div class="foto-container-scrollable">
                                                                     @if ($data->fotoProgres->isNotEmpty())
@@ -525,8 +525,8 @@
                                                                     @else
                                                                         <div
                                                                             class="alert alert-light text-center m-0 placeholder-container">
-                                                                            <i class="bi bi-image placeholder-icon"></i>
-                                                                            <p class="mb-0 mt-2 text-muted">Belum ada foto
+                                                                            <i class="bi bi-image text-hijau-kustom placeholder-icon"></i>
+                                                                            <p class="mb-0 mt-2 text-hijau-kustom">Belum ada foto
                                                                             </p>
                                                                         </div>
                                                                     @endif

@@ -4866,12 +4866,12 @@ fieldset:disabled .btn {
 
 .nav-tabs {
   --bs-nav-tabs-border-width: 1px;
-  --bs-nav-tabs-border-color: #dee2e6;
+  --bs-nav-tabs-border-color: #CFE1B9;
   --bs-nav-tabs-border-radius: 0.5rem;
-  --bs-nav-tabs-link-hover-border-color: #e9ecef #e9ecef #dee2e6;
-  --bs-nav-tabs-link-active-color: #495057;
-  --bs-nav-tabs-link-active-bg: #fff;
-  --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 #fff;
+  --bs-nav-tabs-link-hover-border-color: #718355 ;
+  --bs-nav-tabs-link-active-color: #B5C99A;
+  --bs-nav-tabs-link-active-bg: #B5C99A;
+  --bs-nav-tabs-link-active-border-color: #CFE1B9;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
 }
 
@@ -4974,21 +4974,21 @@ fieldset:disabled .btn {
 .navbar {
   --bs-navbar-padding-x: 1rem;
   --bs-navbar-padding-y: 0.5rem;
-  --bs-navbar-color: #344767;
-  --bs-navbar-hover-color: rgba(52, 71, 103, 0.7);
-  --bs-navbar-disabled-color: rgba(52, 71, 103, 0.3);
-  --bs-navbar-active-color: rgba(52, 71, 103, 0.9);
+  --bs-navbar-color: #B5C99A;
+  --bs-navbar-hover-color: #CFE1B9;
+  --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
+  --bs-navbar-active-color: rgba(0, 0, 0, 0.9);
   --bs-navbar-brand-padding-y: 0.40625rem;
   --bs-navbar-brand-margin-end: 1rem;
   --bs-navbar-brand-font-size: 1.125rem;
-  --bs-navbar-brand-color: rgba(52, 71, 103, 0.9);
-  --bs-navbar-brand-hover-color: rgba(52, 71, 103, 0.9);
+  --bs-navbar-brand-color: rgb(113, 131, 85);
+  --bs-navbar-brand-hover-color: rgb(113, 131, 85);
   --bs-navbar-nav-link-padding-x: 0.5rem;
   --bs-navbar-toggler-padding-y: 0.25rem;
   --bs-navbar-toggler-padding-x: 0.75rem;
   --bs-navbar-toggler-font-size: 1.125rem;
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23344767' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  --bs-navbar-toggler-border-color: rgba(52, 71, 103, 0.1);
+  --bs-navbar-toggler-border-color: rgba(0, 0, 0, 0.1);
   --bs-navbar-toggler-border-radius: 0.5rem;
   --bs-navbar-toggler-focus-width: 0.2rem;
   --bs-navbar-toggler-transition: box-shadow 0.15s ease-in-out;
@@ -5449,22 +5449,6 @@ fieldset:disabled .btn {
   flex-grow: 0;
   padding: 0;
   overflow-y: visible;
-}
-
-.navbar-dark,
-.navbar[data-bs-theme=dark] {
-  --bs-navbar-color: rgba(255, 255, 255, 0.85);
-  --bs-navbar-hover-color: rgba(255, 255, 255, 0.75);
-  --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25);
-  --bs-navbar-active-color: #fff;
-  --bs-navbar-brand-color: #fff;
-  --bs-navbar-brand-hover-color: #fff;
-  --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-[data-bs-theme=dark] .navbar-toggler-icon {
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* end sidebar */
@@ -28422,4 +28406,138 @@ pre[class*=language-] {
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+/* ===============================================
+   STYLE SIDEBAR BARU (SESUAI CONTOH DARI TEMPLATE LAIN)
+   GANTI KODE SIDEBAR SEBELUMNYA DENGAN SEMUA INI
+=============================================== */
 
+/* 1. INDUK: Latar Belakang & Shadow Sidebar */
+/* Diterjemahkan dari: .sidebar */
+.sidenav {
+  background-color: #ffffff; /* Latar belakang putih */
+  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+}
+
+/* 1.1 Kustom Scrollbar */
+/* Diterjemahkan dari: .sidebar::-webkit-scrollbar */
+.sidenav::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #ffffff; /* Latar belakang scrollbar */
+}
+.sidenav::-webkit-scrollbar-thumb {
+  background-color: #718355; /* Warna scrollbar */
+}
+
+/* 2. Brand/Judul (Disesuaikan agar terbaca) */
+.sidenav .navbar-brand .font-weight-bold {
+  color: rgb(113, 131, 85)  ; /* Warna teks gelap agar terbaca */
+}
+
+/* 3. BENTUK DASAR: Tombol Menu */
+/* Diterjemahkan dari: .sidebar-nav .nav-link */
+.sidenav .navbar-nav .nav-link {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease; /* Transisi 0.3 detik */
+  margin-bottom: 5px; /* Jarak antar item */
+}
+
+/* 4. STATE DEFAULT: Tampilan menu (dari .nav-link.collapsed) */
+/* Ini adalah tampilan item menu saat tidak aktif */
+.sidenav .navbar-nav .nav-link {
+  background: #ffffff; /* Background putih (sama dgn sidebar) */
+}
+.sidenav .navbar-nav .nav-link .nav-link-text {
+  color: #718355; /* Warna teks */
+}
+.sidenav .navbar-nav .nav-link .icon i {
+  color: #718355 !important; /* Warna ikon (pakai !important) */
+}
+
+/* 5. STATE ACTIVE: Tampilan menu aktif (VERSI PAKSA DENGAN !IMPORTANT) */
+/* Ini adalah tampilan saat link-nya sedang aktif/dipilih */
+.sidenav .navbar-nav .nav-link.active {
+  background: #B5C99A !important;
+  border-radius: 5px;
+
+}
+.sidenav .navbar-nav .nav-link.active .nav-link-text {
+  color: #ffff !important; /* Diganti jadi teks hijau TUA */
+}
+.sidenav .navbar-nav .nav-link.active .icon i {
+  color: #718355 !important; /* Ikon hijau tua (ini sudah benar) */
+} 
+
+/* 6. STATE HOVER: Tampilan saat mouse di atas (dari .nav-link:hover) */
+/* Ini tampilan saat mouse menyentuh menu (yang tidak aktif) */
+.sidenav .navbar-nav .nav-link:hover:not(.active) {
+  background: #CFE1B9; /* Background hijau sangat muda */
+}
+.sidenav .navbar-nav .nav-link:hover:not(.active) .nav-link-text {
+  color: #718355; /* Teks hijau tua */
+}
+.sidenav .navbar-nav .nav-link:hover:not(.active) .icon i {
+  color: #718355 !important; /* Ikon hijau tua */
+}
+
+/* 7. Tombol Footer (Disesuaikan temanya) */
+/* Ini menyesuaikan tombol Sign In & Example di bawah */
+.sidenav-footer .btn-dark {
+  background-color: #718355; /* Hijau tua */
+  color: #FFFFFF;
+  border: none;
+}
+.sidenav-footer .btn-primary {
+  background-color: #B5C99A; /* Hijau medium */
+  color: #ffffff;
+  border: none;
+}
+/* 8. Teks Judul di Footer */
+.sidenav-footer .docs-info h6 {
+  color: #718355; /* <-- Ganti warnanya di sini */
+}
+
+
+.bg-gradient-icon {
+        background: linear-gradient(135deg, #718355 0%, #6B9071 100%);
+    }
+
+
+    /* WADAH UTAMA BARU */
+.table-container {
+    position: relative; /* Diperlukan untuk beberapa styling lanjutan jika ada */
+}
+
+/* WADAH SCROLLBAR ATAS */
+.top-scrollbar-container {
+    overflow-x: auto;
+    overflow-y: hidden; /* Sembunyikan scrollbar vertikal yang mungkin muncul */
+    height: 12px; /* Sesuaikan dengan tinggi scrollbar bawah Anda */
+    margin-bottom: 8px; /* Beri sedikit jarak ke tabel */
+  scrollbar-width: thin;
+    scrollbar-color: #718355 #f1f1f1;
+  }
+
+/* KONTEN PALSU DI DALAM SCROLLBAR ATAS */
+.top-scrollbar-content {
+    height: 1px; /* Cukup 1px karena hanya butuh lebarnya */
+}
+
+/* PENYESUAIAN KECIL PADA CSS LAMA ANDA */
+/* Pastikan scrollbar bawah juga punya tinggi yang sama */
+.table-responsive::-webkit-scrollbar {
+    width: 8px;   /* Atur juga scrollbar vertikal jika perlu */
+    height: 8px;  /* SAMAKAN TINGGINYA dengan .top-scrollbar-container */
+}
+/* form global */
+.form-control:focus {
+            border-color: #718355;
+            box-shadow: 0 0 0 0.2rem #6B9071;
+        }
+.form-select:focus {
+            border-color: #718355;
+            box-shadow: 0 0 0 0.2rem #6B9071;
+        }

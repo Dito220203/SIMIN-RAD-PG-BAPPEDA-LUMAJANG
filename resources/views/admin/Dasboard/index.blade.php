@@ -267,8 +267,8 @@
                         @endphp
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
-                                <small class="text-muted fw-semibold">Progress Keseluruhan</small>
-                                <small class="fw-bold text-primary">{{ number_format($progressPercentage, 1) }}%</small>
+                                <small class="text-hijau-kustom fw-semibold"> Keseluruhan</small>
+                                <small class="fw-bold text-success">{{ number_format($progressPercentage, 1) }}%</small>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
@@ -336,11 +336,11 @@
                         @endphp
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
-                                <small class="text-muted fw-semibold">Kelengkapan Data</small>
-                                <small class="fw-bold text-info">{{ number_format($monevProgressPercentage, 1) }}%</small>
+                                <small class="text-hijau-kustom fw-semibold">Kelengkapan Data</small>
+                                <small class="fw-bold text-success">{{ number_format($monevProgressPercentage, 1) }}%</small>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
                                      style="width: {{ $monevProgressPercentage }}%"></div>
                             </div>
                         </div>

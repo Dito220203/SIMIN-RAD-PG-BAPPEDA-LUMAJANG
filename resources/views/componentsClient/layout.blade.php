@@ -50,7 +50,7 @@
     @include('componentsClient.sidebar')
     {{-- @include('componentsClient.navbar') --}}
 
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg" style="overflow-y: auto;">
 
         <!-- Navbar -->
 
@@ -129,7 +129,7 @@
                     tension: 0.4,
                     borderWidth: 0,
                     pointRadius: 0,
-                    borderColor: "#5e72e4",
+                    borderColor: "#718355",
                     backgroundColor: gradientStroke1,
                     borderWidth: 3,
                     fill: true,

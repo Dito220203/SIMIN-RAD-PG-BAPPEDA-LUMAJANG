@@ -57,7 +57,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
+                                                                    class="btn btn-success">Simpan</button>
                                                             </div>
                                                         </form>
                                                     </div>
