@@ -17,6 +17,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
+                                    <h5 class="card-title">Tabel Strategi</h5>
+                                    <!-- Header control: Tambah, Search, Tampilkan Data -->
                                     <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3 mt-3">
                                         <button type="button" class="btn btn-tambah-utama " data-bs-toggle="modal"
                                             data-bs-target="#modalSubProgram">
@@ -68,19 +70,20 @@
 
 
                                         <div class="d-flex align-items-center gap-2">
-                                    <label for="showEntries">Tampilkan</label>
-                                    <select id="showEntries" class="form-select form-select-sm" style="width: auto;">
-                                        <option value="1">1</option>
-                                        <option value="2" selected>2</option>
-                                        <option value="3">3</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                    <span>entri</span>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" placeholder="Cari di halaman ini..."
-                                        id="liveSearchInput">
-                                </div>
+                                            <label for="showEntries">Tampilkan</label>
+                                            <select id="showEntries" class="form-select form-select-sm"
+                                                style="width: auto;">
+                                                <option value="5">5</option>
+                                                <option value="10" selected>10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                            <span>entri</span>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                                id="liveSearchInput">
+                                        </div>
 
                                     </div>
                                 </div>
@@ -104,7 +107,7 @@
                                                     <td class="text-center align-middle">
                                                         <div class="d-flex justify-content-center gap-1">
                                                             <!-- Detail -->
-                                                            <button type="button" class="btn btn-tambah-utama btn-sm"
+                                                            <button type="button" class="btn btn-info btn-sm"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#ModalDetailSub{{ $data->id }}">
                                                                 <i class="fa-solid fa-circle-info"></i>
@@ -171,7 +174,7 @@
                                                                                 class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Batal</button>
                                                                             <button type="submit"
-                                                                                class="btn btn-success">Update</button>
+                                                                                class="btn btn-primary">Update</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -184,10 +187,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                               <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
-                                <div id="paginationInfo"></div>
-                                <div id="paginationControls"></div>
-                            </div>
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                                    <div id="paginationInfo"></div>
+                                    <div id="paginationControls"></div>
+                                </div>
                                 <!-- End Table Sub Program -->
                             </div>
                         </div>
@@ -198,7 +202,7 @@
                             aria-labelledby="DetailSubLabel{{ $data->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header card-dashboard text-white">
+                                    <div class="modal-header bg-info text-white">
                                         <h5 class="modal-title" id="DetailSubLabel{{ $data->id }}">Detail Sub Program
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"

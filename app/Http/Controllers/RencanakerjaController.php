@@ -20,19 +20,15 @@ class RencanakerjaController extends Controller
 
     // app/Http/Controllers/RencanakerjaController.php
 
-    public function index(Request $request)
+   public function index(Request $request)
     {
         $user   = Auth::guard('pengguna')->user();
-        $search = $request->input('search');
-        $tahun  = $request->input('tahun'); // <-- AMBIL INPUT TAHUN DARI REQUEST
-
-        // Ambil semua tahun unik dari database untuk dropdown filter
-        // distinct() untuk mengambil nilai unik & pluck() untuk mengambil satu kolom saja
+        $tahun  = $request->input('tahun');
         $daftarTahun = RencanaKerja::query()
             ->active() // Hanya dari data yang aktif
             ->select('tahun')
             ->distinct()
-            ->orderBy('tahun', 'desc') // Urutkan dari tahun terbaru
+            ->orderBy('tahun', 'desc')
             ->pluck('tahun');
 
         $query = RencanaKerja::with(['subprogram', 'opd'])
@@ -42,34 +38,16 @@ class RencanakerjaController extends Controller
             $query->where('id_pengguna', $user->id);
         }
 
-        // TERAPKAN FILTER TAHUN JIKA ADA
         if ($tahun) {
             $query->where('tahun', $tahun);
         }
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('rencana_aksi', 'like', "%{$search}%")
-                    // ... sisa query pencarian Anda tidak berubah ...
-                    ->orWhere('keterangan', 'like', "%{$search}%");
-            })
-                ->orWhereHas('opd', function ($q) use ($search) {
-                    $q->where('nama', 'like', "%{$search}%");
-                })
-                ->orWhereHas('subprogram', function ($q) use ($search) {
-                    $q->where('subprogram', 'like', "%{$search}%");
-                });
-        }
-
-        $rencana = $query->paginate(10);
-        // Tambahkan 'tahun' agar pagination tetap mengingat filter tahun yang dipilih
-        $rencana->appends($request->only('search', 'tahun'));
+        $rencana = $query->get();
         $opdIdsWithData = RencanaKerja::select('id_opd')->whereNotNull('id_opd')->distinct()->pluck('id_opd');
 
         $allOpds = Opd::whereIn('id', $opdIdsWithData)->orderBy('nama', 'asc')->get();
 
-        // KIRIM VARIABEL BARU KE VIEW
-        return view('admin.RencanaKerja.index', compact('rencana', 'search', 'daftarTahun', 'tahun', 'allOpds'));
+        return view('admin.RencanaKerja.index', compact('rencana', 'daftarTahun', 'tahun', 'allOpds'));
     }
 
 
@@ -132,7 +110,8 @@ class RencanakerjaController extends Controller
             'volume' => 'required',
             'satuan' => 'required',
             'id_opd' => 'required|exists:opds,id',
-            'keterangan' => 'required'
+            'keterangan' => 'nullable|string'
+
         ]);
 
         $anggaranString = implode('; ', $validate['anggaran']);
@@ -244,7 +223,8 @@ class RencanakerjaController extends Controller
             'sumberdana.*' => 'required|string',
             'lokasi'       => 'required',
             'id_opd'       => 'required|exists:opds,id',
-            'keterangan'   => 'required'
+           'keterangan' => 'nullable|string'
+
         ]);
 
         // 2️⃣ Gabungkan array menjadi string

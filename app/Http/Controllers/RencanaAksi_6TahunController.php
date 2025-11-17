@@ -23,13 +23,7 @@ class RencanaAksi_6TahunController extends Controller
      */
     public function index(Request $request)
     {
-        // Ambil input dari request
-        $search = $request->input('search');
         $selectedTahun = $request->input('tahun'); // Ambil input tahun
-
-        // =============================================================
-        // BAGIAN BARU 1: Mengambil daftar tahun unik dari database
-        // =============================================================
         $tahuns = RencanaAksi_6_tahun::select('tahun')
             ->where('delete_at', '0')
             ->distinct()
@@ -39,40 +33,11 @@ class RencanaAksi_6TahunController extends Controller
         $query = RencanaAksi_6_tahun::with(['subprogram', 'opd'])
             ->where('delete_at', '0');
 
-        // =============================================================
-        // BAGIAN BARU 2: Terapkan filter tahun jika dipilih
-        // =============================================================
         if ($selectedTahun) {
             $query->where('tahun', $selectedTahun);
         }
-
-        // Logika pencarian Anda (tidak berubah)
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('rencana_aksi', 'like', "%{$search}%")
-                    ->orWhere('nama_program', 'like', "%{$search}%")
-                    ->orWhere('kegiatan', 'like', "%{$search}%")
-                    ->orWhere('sub_kegiatan', 'like', "%{$search}%")
-                    ->orWhere('lokasi', 'like', "%{$search}%")
-                    // ->orWhere('tahun', 'like', "%{$search}%") // Sebaiknya dihapus agar tidak bentrok dengan filter
-                    ->orWhere('volume', 'like', "%{$search}%")
-                    ->orWhere('satuan', 'like', "%{$search}%")
-                    ->orWhere('anggaran', 'like', "%{$search}%")
-                    ->orWhere('sumberdana', 'like', "%{$search}%")
-                    ->orWhere('keterangan', 'like', "%{$search}%")
-                    ->orWhereHas('opd', function ($subq) use ($search) {
-                        $subq->where('nama', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('subprogram', function ($subq) use ($search) {
-                        $subq->where('subprogram', 'like', "%{$search}%");
-                    });
-            });
-        }
-        $rencanaAksi = $query->paginate(10);
-
-        $rencanaAksi->appends($request->only('search', 'tahun'));
-
-        return view('admin.RencanAksi6Tahun.index', compact('rencanaAksi', 'search', 'tahuns'));
+        $rencanaAksi = $query->get();
+        return view('admin.RencanAksi6Tahun.index', compact('rencanaAksi', 'tahuns'));
     }
 
 
@@ -118,7 +83,8 @@ class RencanaAksi_6TahunController extends Controller
             'volume' => 'required',
             'satuan' => 'required',
             'id_opd' => 'required|exists:opds,id',
-            'keterangan' => 'required'
+           'keterangan' => 'nullable|string'
+
         ]);
 
         // 2. Cari pengguna yang sesuai dengan OPD yang dipilih
@@ -240,7 +206,7 @@ class RencanaAksi_6TahunController extends Controller
             'volume'       => 'required',
             'satuan'       => 'required',
             'id_opd'       => 'required|exists:opds,id',
-            'keterangan'   => 'required',
+           'keterangan' => 'nullable|string',
         ]);
 
         // 2️⃣ Ambil data lama SEBELUM diupdate untuk referensi
@@ -279,7 +245,7 @@ class RencanaAksi_6TahunController extends Controller
             'lokasi'        => $validate['lokasi'],
             'id_opd'        => $validate['id_opd'],
             'volume'        => $validate['volume'],
-             'satuan'        => $validate['satuan'],
+            'satuan'        => $validate['satuan'],
             'keterangan'    => $validate['keterangan'],
         ];
 

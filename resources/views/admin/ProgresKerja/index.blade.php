@@ -18,20 +18,27 @@
                             <!-- Header tools -->
                             <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3 mt-3">
 
-                                <form method="GET" class="input-group w-auto mb-1">
-                                    <input type="text" name="search" class="form-control" placeholder="Cari Data"
-                                        value="{{ request('search') }}">
-                                    <button class="btn btn-tambah-utama" type="submit">Cari</button>
-                                    @if (request('search'))
-                                        <a href="{{ route('progres') }}" class="btn btn-secondary">Reset</a>
-                                    @endif
-                                </form>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <label for="showEntries">Tampilkan</label>
+                                    <select id="showEntries" class="form-select form-select-sm" style="width: auto;">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    <span>entri</span>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                            id="liveSearchInput">
+                                </div>
 
                             </div>
 
                             <!-- Table -->
                             <div class="table-responsive">
-                                <table class="detail-table" id="TableProgres">
+                                <table class="detail-table" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -45,10 +52,10 @@
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="dataTabelBody">
                                         @foreach ($progres as $data)
                                             <tr id="row-{{ $data->id }}">
-                                                <td>{{ $progres->firstItem() + $loop->index }}</td>
+                                                <td>{{ $loop->index }}</td>
                                                 <td>
                                                     {{-- Panggil relasi 'rencanakerja', lalu kolom 'rencana_aksi' dari tabel RencanaKerja --}}
                                                     {{ $data->monev?->rencanakerja?->rencana_aksi ?? '-' }}
@@ -64,8 +71,8 @@
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-1">
                                                         <!-- Tombol Detail -->
-                                                        <button type="button" class="btn btn-tambah-utama btn-sm" title="Lihat"
-                                                            data-bs-toggle="modal"
+                                                        <button type="button" class="btn btn-tambah-utama btn-sm"
+                                                            title="Lihat" data-bs-toggle="modal"
                                                             data-bs-target="#detailModal{{ $data->id }}">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>
@@ -157,9 +164,6 @@
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
-
-
-
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -226,10 +230,10 @@
                                     </div>
                                 @endforeach
                                 <!-- End Table with stripped rows -->
-
                             </div>
-                            <div class="mt-3">
-                                {{ $progres->links('vendor.pagination.bootstrap-5') }}
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+                                <div id="paginationInfo"></div>
+                                <div id="paginationControls"></div>
                             </div>
                         </div>
 
@@ -237,36 +241,10 @@
                 </div>
             </div>
         </section>
-        {{-- <div class="col-lg-4">
-                            <div class="card border-0 shadow-sm h-800">
-                                <div class="card-body">
-                                    <h6 class="mb-3">
-                                        <i class="bi bi-geo-alt-fill text-danger me-2"></i>Lokasi Peta
-                                    </h6>
-                                    @if ($data->monev && $data->monev->map)
-                                        <div id="detailMapProgres{{ $data->id }}"
-                                            class="detail-map-container rounded shadow-sm"
-                                            style="height: 350px; width: 100%; border: 2px solid #e9ecef; z-index: 0;"
-                                            data-latitude="{{ $data->monev->map->latitude }}"
-                                            data-longitude="{{ $data->monev->map->longitude }}">
-                                        </div>
-                                    @else
-                                        <div class="alert alert-light text-center d-flex flex-column align-items-center justify-content-center"
-                                            style="height: 350px;">
-                                            <i class="bi bi-map text-muted" style="font-size: 3rem;"></i>
-                                            <p class="mb-0 mt-3 text-muted">Lokasi belum ditandai</p>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div> --}}
+
     </main>
 @endsection
 @push('scripts')
-    {{-- Pastikan library Leaflet sudah dimuat di layout utama atau di sini --}}
-    {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> --}}
-
     <script>
         // Event listener ini akan berjalan untuk SEMUA modal di halaman
         document.addEventListener('shown.bs.modal', function(event) {

@@ -54,7 +54,7 @@
         background: linear-gradient(135deg, #718355 0%, #6B9071 100%);
     }
 
-    
+
     .welcome-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border: none;
@@ -185,47 +185,7 @@
                 </div>
             </div>
         </div>
-        <!-- Welcome Card -->
-        {{-- <div class="row mb-4">
-            <div class="col-12">
-                <div class="card welcome-card shadow-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <h2 class="mb-2 fw-bold">
-                                    Selamat Datang, <span class="text-warning">{{ $user->nama }}</span>! 👋
-                                </h2>
-                                <p class="mb-3 opacity-90 fs-6">
-                                    Semoga hari Anda menyenangkan. Mari bersama kita kelola data dengan
-                                    lebih efisien, akurat, dan transparan.
-                                </p>
 
-                                <div class="d-flex flex-wrap gap-2">
-                                    <span class="badge-custom bg-white bg-opacity-25">
-                                        <i class="fas fa-user me-2"></i>
-                                        Level: <strong>{{ $user->level ?? 'User' }}</strong>
-                                    </span>
-                                    <span class="badge-custom bg-white bg-opacity-25">
-                                        <i class="fas fa-calendar me-2"></i>
-                                        {{ date('d M Y') }}
-                                    </span>
-                                    <span class="badge-custom bg-white bg-opacity-25">
-                                        <i class="fas fa-clock me-2"></i>
-                                        {{ date('H:i') }} WIB
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 text-center d-none d-md-block">
-                                <div class="position-relative">
-                                    <i class="fas fa-chart-bar" style="font-size: 120px; opacity: 0.2;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         <!-- Detail Cards -->
         <div class="row g-4">

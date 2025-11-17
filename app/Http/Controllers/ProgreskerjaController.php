@@ -16,41 +16,19 @@ use Illuminate\Support\Facades\Storage;
 class ProgreskerjaController extends Controller
 {
 
-    public function index(Request $request)
-    {
-        $user   = Auth::guard('pengguna')->user();
-        $search = $request->input('search');
+   public function index(Request $request)
+{
+    $user   = Auth::guard('pengguna')->user();
 
-        $query = ProgresKerja::with(['penggunas', 'subprogram', 'monev.rencanakerja', 'monev.map']);
+    $query = ProgresKerja::with(['penggunas', 'subprogram', 'monev.rencanakerja', 'monev.map']);
 
-        if ($user->level !== 'Super Admin') {
-            $query->where('id_pengguna', $user->id);
-        }
-
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->orWhere('status', 'like', "%{$search}%")
-                    ->orWhereHas('penggunas', function ($pengguna) use ($search) {
-                        $pengguna->where('nama', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('subprogram', function ($sub) use ($search) {
-                        $sub->where('subprogram', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('monev.subprogram', function ($sp) use ($search) {
-                        $sp->where('subprogram', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('monev.rencanakerja', function ($rk) use ($search) {
-                        $rk->where('rencana_aksi', 'like', "%{$search}%")
-                            ->orWhere('tahun', 'like', "%{$search}%");
-                    });
-            });
-        }
-
-        $progres = $query->paginate(10);
-        $progres->appends($request->only('search'));
-
-        return view('admin.ProgresKerja.index', compact('progres', 'search'));
+    if ($user->level !== 'Super Admin') {
+        $query->where('id_pengguna', $user->id);
     }
+
+    $progres = $query->get();
+    return view('admin.ProgresKerja.index', compact('progres'));
+}
 
 
 
