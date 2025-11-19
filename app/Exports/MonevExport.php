@@ -142,7 +142,7 @@ class MonevExport implements FromCollection, WithHeadings, WithStyles, WithTitle
     {
         $lastColumn = 'T'; // DIPERBAIKI: Diubah dari S ke T karena ada kolom baru
         $sheet->mergeCells("A1:{$lastColumn}1");
-        $sheet->setCellValue('A1', 'Monitoring dan Evaluasi IAD Perhutanan Sosial');
+        $sheet->setCellValue('A1', 'Monitoring dan Evaluasi RAD-PG');
         $sheet->getRowDimension(1)->setRowHeight(30);
         $sheet->getStyle('A1')->applyFromArray([
             'font' => ['bold' => true, 'size' => 16],
@@ -151,7 +151,7 @@ class MonevExport implements FromCollection, WithHeadings, WithStyles, WithTitle
 
         $headerRange = "A3:{$lastColumn}3";
         $sheet->getStyle($headerRange)->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FFFFFFFF']],
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FF92D050']],
             'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
             'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FF4F81BD']],
         ]);

@@ -13,22 +13,32 @@
                     {{-- <h6 class="font-weight-bolder text-white mb-0">Rencana Kegiatan</h6> --}}
                 </nav>
 
-                <div class="ms-md-auto pe-md-1 d-flex align-items-center">
-                    <div class="input-group">
-                        <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" placeholder="Cari di halaman ini..."
-                            id="liveSearchInput">
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Cari di halaman ini..."
+                                id="liveSearchInput">
+                        </div>
                     </div>
+                    <ul class="navbar-nav  justify-content-end">
+
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="{{ route('login') }}" class="nav-link text-white font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">Sign In</span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="navbar-nav  justify-content-end">
-                    <li class="nav-item d-flex align-items-center">
-                        <a href="{{ route('login') }}" class="nav-link text-white font-weight-bold px-0">
-                            <i class="fa fa-user me-sm-1"></i>
-                            <span class="d-sm-inline d-none">Sign In</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </nav>
 
         <div class="row mt-4">
@@ -49,7 +59,7 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Strategi</th>
-                                        <th class="kolom-panjang" >RENCANA AKSI / AKTIVITAS</th>
+                                        <th class="kolom-panjang">RENCANA AKSI / AKTIVITAS</th>
                                         <th class="kolom-panjang">SUB KEGIATAN</th>
                                         <th class="kolom-panjang">KEGIATAN</th>
                                         <th class="kolom-panjang">PROGRAM</th>
@@ -58,7 +68,7 @@
                                         <th class="text-center">Satuan</th>
                                         <th class="text-center">Tahun</th>
                                         <th>Perangkat Daerah</th>
-                                        <th>Anggaran</th>
+                                        {{-- <th>Anggaran</th> --}}
                                         <th>Sumber Dana</th>
                                         <th>Status</th>
                                         <th>Keterangan</th>
@@ -84,7 +94,7 @@
                                                 $sumberdanas = explode('; ', $item->sumberdana);
                                             @endphp
 
-                                            @if (count($anggarans) > 1)
+                                            {{-- @if (count($anggarans) > 1)
                                                 <td class="multi-item-rensi align-middle">
                                                     @foreach ($anggarans as $anggaran)
                                                         <div>{{ $anggaran ?: '-' }}</div>
@@ -92,7 +102,7 @@
                                                 </td>
                                             @else
                                                 <td class="align-middle">{{ $item->anggaran ?: '-' }}</td>
-                                            @endif
+                                            @endif --}}
 
                                             @if (count($sumberdanas) > 1)
                                                 <td class="multi-item-rensi align-middle">
@@ -115,7 +125,6 @@
 
                                         </tr>
                                     @empty
-
                                     @endforelse
                                 </tbody>
                             </table>
@@ -133,7 +142,7 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('js/progres-tabel.js') }}"></script>
-     {{-- <script src="{{ asset('js/progres-tabel.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/progres-tabel.js') }}"></script> --}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

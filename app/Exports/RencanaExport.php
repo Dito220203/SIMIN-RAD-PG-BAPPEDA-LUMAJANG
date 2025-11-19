@@ -123,7 +123,7 @@ class RencanaExport implements FromCollection, WithHeadings, WithStyles, WithTit
     public function styles(Worksheet $sheet)
     {
         $sheet->mergeCells('A1:O1');
-        $sheet->setCellValue('A1', 'Rencana Kegiatan IAD Perhutanan Sosial');
+        $sheet->setCellValue('A1', 'Rencana Kegiatan RAD-PG');
         $sheet->getRowDimension(1)->setRowHeight(30);
 
         $collection = $this->collection();
@@ -143,7 +143,7 @@ class RencanaExport implements FromCollection, WithHeadings, WithStyles, WithTit
 
         $headerRange = "A3:{$lastColumn}3";
         $sheet->getStyle($headerRange)->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FFFFFFFF']],
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FF92D050']],
             'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
             'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FF4F81BD']],
         ]);
