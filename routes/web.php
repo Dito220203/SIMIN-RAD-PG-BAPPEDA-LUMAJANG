@@ -57,13 +57,11 @@ Route::middleware(['authadmin', 'noCache'])->group(function () {
     Route::put('/banner-update/{id}', [BannerController::class, 'update'])->name('banner.update');
     Route::delete('/banner-delete/{id}', [BannerController::class, 'destroy'])->name('banner.delete');
 
-    Route::get('/subProgram', [SubProgramController::class, 'index'])->name('subprogram');
-    Route::post('/subprogram-create', [SubProgramController::class, 'store'])->name('subrogram.store');
-    Route::post('/store-produk', [SubProgramController::class, 'storeProduk'])->name('produk.store');
-    Route::put('/subprogram-update/{id}', [SubProgramController::class, 'update'])->name('subprogram.update');
-    Route::delete('/supprogram-delete/{id}', [SubProgramController::class, 'destroy'])->name('subrogram.delete');
-    Route::put('/sub-produk-update/{id}', [SubProgramController::class, 'updateProduk'])->name('update.produk');
-    Route::delete('/sub-produk/{id}/delete', [SubProgramController::class, 'destroyProduk'])->name('delete.produk');
+    Route::get('/strategi-admin', [SubProgramController::class, 'index'])->name('subprogram');
+    Route::post('/strategi-create', [SubProgramController::class, 'store'])->name('subrogram.store');
+    Route::put('/strategi-update/{id}', [SubProgramController::class, 'update'])->name('subprogram.update');
+    Route::delete('/strategi-delete/{id}', [SubProgramController::class, 'destroy'])->name('subrogram.delete');
+
 
 
     Route::get('/rencan-aksi', [RencanaAksi_6TahunController::class, 'index'])->name('rencana6tahun');
